@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 4;
+use Test::More tests => 6;
 
 
 {
@@ -18,6 +18,16 @@ use Test::More tests => 4;
     use MooseX::StrictConstructor;
 
     has 'thing' => ( is => 'rw' );
+}
+
+{
+    package Subclass;
+
+    use MooseX::StrictConstructor;
+
+    extends 'Stricter';
+
+    has 'size' => ( is => 'rw' );
 }
 
 {
@@ -48,3 +58,9 @@ is( $@, '', 'can work around strict constructor by deleting params in BUILD()' )
 
 eval { Tricky->new( thing => 1, agent => 99 ) };
 like( $@, qr/unknown attribute.+: agent/, 'Tricky still blows up on unknown params other than spy' );
+
+eval { Subclass->new( thing => 1, bad => 99 ) };
+like( $@, qr/unknown attribute.+: bad/, 'subclass constructor blows up on unknown params' );
+
+eval { Subclass->new( thing => 1, size => 'large' ) };
+is( $@, '', 'subclass constructor handles known attributes correctly' );

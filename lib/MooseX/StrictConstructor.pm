@@ -32,23 +32,48 @@ __END__
 
 =head1 NAME
 
-MooseX::StrictConstructor - The fantastic new MooseX::StrictConstructor!
+MooseX::StrictConstructor - Make your object constructors blow up on unknown attributes
 
 =head1 SYNOPSIS
 
-XXX - change this!
+    package My::Class;
 
-    use MooseX::StrictConstructor;
+    use MooseX::StrictConstructor; # instead of use Moose
 
-    my $foo = MooseX::StrictConstructor->new();
+    has 'size' => ...;
 
-    ...
+    # then later ...
+
+    # this blows up because color is not a known attribute
+    My::Class->new( size => 5, color => 'blue' );
 
 =head1 DESCRIPTION
 
-=head1 METHODS
+Using this class to load Moose instead of just loading using Moose
+itself makes your constructors "strict". If your constructor is called
+with an attribute that your class does not declare, then it calls
+"Carp::confess()". This is a great way to catch small typos.
 
-This class provides the following methods
+=head2 Subverting Strictness
+
+You may find yourself wanting to accept a parameter to the constructor
+that is not the name of an attribute.
+
+In that case, you'll probably be writing a C<BUILD()> method to deal
+with it. Your C<BUILD()> method will receive two parameters, the new
+object, and a hash reference of parameters passed to the constructor.
+
+If you delete keys from this hash reference, then they will not be
+seen when this class does its checking.
+
+  sub BUILD {
+      my $self   = shift;
+      my $params = shift;
+
+      if ( delete $params->{do_something} ) {
+          ...
+      }
+  }
 
 =head1 AUTHOR
 
@@ -56,10 +81,11 @@ Dave Rolsky, C<< <autarch@urth.org> >>
 
 =head1 BUGS
 
-Please report any bugs or feature requests to C<bug-moosex-strictconstructor@rt.cpan.org>,
-or through the web interface at L<http://rt.cpan.org>.  I will be
-notified, and then you'll automatically be notified of progress on
-your bug as I make changes.
+Please report any bugs or feature requests to
+C<bug-moosex-strictconstructor@rt.cpan.org>, or through the web
+interface at L<http://rt.cpan.org>.  I will be notified, and then
+you'll automatically be notified of progress on your bug as I make
+changes.
 
 =head1 COPYRIGHT & LICENSE
 
