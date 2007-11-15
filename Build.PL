@@ -1,6 +1,8 @@
 use strict;
 use warnings;
 
+require 5.00601;
+
 use Module::Build;
 
 my $builder = Module::Build->new

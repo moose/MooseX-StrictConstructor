@@ -3,7 +3,7 @@ package MooseX::StrictConstructor;
 use strict;
 use warnings;
 
-our $VERSION = '0.01';
+our $VERSION = '0.02';
 
 use Moose;
 use MooseX::Object::StrictConstructor;
@@ -15,7 +15,10 @@ sub import
 
     return if $caller eq 'main';
 
-    Moose::init_meta( $caller, 'MooseX::Object::StrictConstructor', 'Moose::Meta::Class' );
+    Moose::init_meta( $caller,
+                      'MooseX::Object::StrictConstructor',
+                      'MooseX::StrictConstructor::Meta::Class',
+                    );
 
     Moose->import( { into => $caller } );
 
@@ -74,6 +77,13 @@ seen when this class does its checking.
           ...
       }
   }
+
+=head2 Caveats
+
+Using this class replaces the default Moose meta class,
+C<Moose::Meta::Class>, with its own,
+C<MooseX::StrictConstructor::Meta::Class>. If you have your own meta
+class, this distro will probably not work for you.
 
 =head1 AUTHOR
 

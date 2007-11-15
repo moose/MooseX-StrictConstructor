@@ -7,6 +7,9 @@ use Moose;
 
 use Carp 'confess';
 
+use metaclass 'MooseX::StrictConstructor::Meta::Class';
+
+
 extends 'Moose::Object';
 
 after 'BUILDALL' => sub

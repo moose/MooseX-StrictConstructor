@@ -2,6 +2,8 @@
 
 - Moose was missing from the prereq list. Reported by Slaven Rezic.
 
+- Version 0.01 did not work after a class was made immutable.
+
 
 0.01   2007-11-14
 
