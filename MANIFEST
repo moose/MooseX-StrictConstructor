@@ -1,10 +1,12 @@
 Build.PL
 Changes
-MANIFEST
-MANIFEST.SKIP
-META.yml # Will be created by "make dist"
-README # Will be created by "make dist"
+lib/MooseX/Object/StrictConstructor.pm
 lib/MooseX/StrictConstructor.pm
+Makefile.PL
+MANIFEST			This list of files
+META.yml
+README
+t/basic.t
 t/perlcritic.t
 t/pod-coverage.t
 t/pod.t
