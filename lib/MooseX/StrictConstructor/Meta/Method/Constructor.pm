@@ -3,28 +3,32 @@ package MooseX::StrictConstructor::Meta::Method::Constructor;
 use strict;
 use warnings;
 
+use Carp ();
 use Moose;
 
 extends 'Moose::Meta::Method::Constructor';
 
+# using 
 sub _generate_BUILDALL ## no critic RequireArgUnpacking
 {
     my $self = shift;
 
-    my $calls = $self->SUPER::_generate_BUILDALL(@_);
+    my $source = $self->SUPER::_generate_BUILDALL(@_);
+    $source .= ";\n" if $source;
 
-    $calls .= <<'EOF';
-    my %attrs = map { $_->name() => 1 } $self->meta()->compute_all_applicable_attributes();
+    my @attrs = map { $_->name() . ' => 1,' } @{ $self->attributes() };
 
-    my @bad = sort grep { ! $attrs{$_} }  keys %params;
+    $source .= <<"EOF";
+my \%attrs = (@attrs);
 
-    if (@bad)
-    {
-        confess "Found unknown attribute(s) passed to the constructor: @bad";
-    }
+my \@bad = sort grep { ! \$attrs{\$_} }  keys \%params;
+
+if (\@bad) {
+    Carp::confess "Found unknown attribute(s) passed to the constructor: \@bad";
+}
 EOF
 
-    return $calls;
+    return $source;
 };
 
 

@@ -71,6 +71,9 @@ use Test::More tests => 9;
 
         delete $params->{spy};
     }
+
+    no Moose;
+    __PACKAGE__->meta()->make_immutable();
 }
 
 
