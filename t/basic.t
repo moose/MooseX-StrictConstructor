@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 6;
+use Test::More tests => 7;
 
 
 {
@@ -46,6 +46,17 @@ use Test::More tests => 6;
     }
 }
 
+{
+    package Immutable;
+
+    use MooseX::StrictConstructor;
+
+    has 'thing' => ( is => 'rw' );
+
+    no Moose;
+    __PACKAGE__->meta()->make_immutable();
+}
+
 
 eval { Standard->new( thing => 1, bad => 99 ) };
 is( $@, '', 'standard Moose class ignores unknown params' );
@@ -64,3 +75,7 @@ like( $@, qr/unknown attribute.+: bad/, 'subclass constructor blows up on unknow
 
 eval { Subclass->new( thing => 1, size => 'large' ) };
 is( $@, '', 'subclass constructor handles known attributes correctly' );
+
+eval { Immutable->new( thing => 1, bad => 99 ) };
+like( $@, qr/unknown attribute.+: bad/,
+      'strict constructor in immutable class blows up on unknown params' );
