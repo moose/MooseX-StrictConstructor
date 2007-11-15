@@ -1,6 +1,6 @@
 0.02
 
-- Moose was missing from the prereq list.
+- Moose was missing from the prereq list. Reported by Slaven Rezic.
 
 
 0.01   2007-11-14
