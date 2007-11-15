@@ -16,7 +16,7 @@ after 'BUILDALL' => sub
 
     my %attrs = map { $_->name() => 1 } $self->meta()->compute_all_applicable_attributes();
 
-    my @bad = grep { ! $attrs{$_} } keys %{ $params };
+    my @bad = sort grep { ! $attrs{$_} }  keys %{ $params };
 
     if (@bad)
     {
