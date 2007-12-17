@@ -9,12 +9,13 @@ use Moose;
 
 extends 'Moose::Meta::Class';
 
-override 'make_immutable' => sub ## no critic RequireArgUnpacking
+around 'make_immutable' => sub ## no critic RequireArgUnpacking
 {
+    my $orig = shift;
     my $self = shift;
 
     return
-        $self->SUPER::make_immutable
+        $self->$orig
             ( constructor_class => 'MooseX::StrictConstructor::Meta::Method::Constructor',
               @_,
             );
