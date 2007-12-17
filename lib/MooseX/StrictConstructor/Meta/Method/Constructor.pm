@@ -12,7 +12,7 @@ override '_generate_BUILDALL' => sub ## no critic RequireArgUnpacking
 {
     my $self = shift;
 
-    my $source = $self->SUPER::_generate_BUILDALL(@_);
+    my $source = super();
     $source .= ";\n" if $source;
 
     my @attrs = map { $_->name() . ' => 1,' } @{ $self->attributes() };
