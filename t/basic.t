@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 9;
+use Test::More tests => 12;
 
 
 {
@@ -44,6 +44,15 @@ use Test::More tests => 9;
 
         delete $params->{spy};
     }
+}
+
+{
+    package InitArg;
+
+    use MooseX::StrictConstructor;
+
+    has 'thing' => ( is => 'rw', 'init_arg' => 'other' );
+    has 'size'  => ( is => 'rw', 'init_arg' => undef );
 }
 
 {
@@ -106,3 +115,15 @@ is( $@, '',
 eval { ImmutableTricky->new( thing => 1, agent => 99 ) };
 like( $@, qr/unknown attribute.+: agent/,
       'ImmutableTricky still blows up on unknown params other than spy' );
+
+eval { InitArg->new( thing => 1 ) };
+like( $@, qr/unknown attribute.+: thing/,
+      'InitArg blows up with attribute name' );
+
+eval { InitArg->new( size => 1 ) };
+like( $@, qr/unknown attribute.+: size/,
+      'InitArg blows up when given attribute with undef init_arg' );
+
+eval { InitArg->new( other => 1 ) };
+is( $@, '',
+    'InitArg works when given proper init_arg' );

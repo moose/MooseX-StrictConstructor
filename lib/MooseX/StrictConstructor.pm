@@ -3,7 +3,7 @@ package MooseX::StrictConstructor;
 use strict;
 use warnings;
 
-our $VERSION = '0.03';
+our $VERSION = '0.04';
 
 use Moose;
 use MooseX::Object::StrictConstructor;
@@ -54,8 +54,8 @@ MooseX::StrictConstructor - Make your object constructors blow up on unknown att
 
 Using this class to load Moose instead of just loading using Moose
 itself makes your constructors "strict". If your constructor is called
-with an attribute that your class does not declare, then it calls
-"Carp::confess()". This is a great way to catch small typos.
+with an attribute init argument that your class does not declare, then
+it calls "Carp::confess()". This is a great way to catch small typos.
 
 =head2 Subverting Strictness
 

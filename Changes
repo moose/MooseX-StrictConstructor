@@ -1,3 +1,9 @@
+0.04   2008-04-18
+
+- This module did not respcet the init_arg attribute setting, and used
+  the attribute name instead. Reported by Matt Trout. RT #34507.
+
+
 0.03   2007-11-20
 
 - Require Moose 0.26, since that's first version to offer init_meta(),

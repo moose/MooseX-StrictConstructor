@@ -17,13 +17,18 @@ after 'BUILDALL' => sub
     my $self   = shift;
     my $params = shift;
 
-    my %attrs = map { $_->name() => 1 } $self->meta()->compute_all_applicable_attributes();
+    my %attrs =
+        ( map { $_ => 1 }
+          grep { defined }
+          map { $_->init_arg() }
+          $self->meta()->compute_all_applicable_attributes()
+        );
 
     my @bad = sort grep { ! $attrs{$_} }  keys %{ $params };
 
     if (@bad)
     {
-        confess "Found unknown attribute(s) passed to the constructor: @bad";
+        confess "Found unknown attribute(s) init_arg passed to the constructor: @bad";
     }
 
     return;
