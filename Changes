@@ -1,6 +1,11 @@
+0.05   2008-04-18
+
+- The fix in 0.04 only worked for non-immutable classes.
+
+
 0.04   2008-04-18
 
-- This module did not respcet the init_arg attribute setting, and used
+- This module did not respect the init_arg attribute setting, and used
   the attribute name instead. Reported by Matt Trout. RT #34507.
 
 

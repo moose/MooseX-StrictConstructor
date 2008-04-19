@@ -15,7 +15,12 @@ override '_generate_BUILDALL' => sub ## no critic RequireArgUnpacking
     my $source = super();
     $source .= ";\n" if $source;
 
-    my @attrs = map { $_->name() . ' => 1,' } @{ $self->attributes() };
+    my @attrs =
+        ( map { "$_ => 1," }
+          grep { defined }
+          map { $_->init_arg() }
+          @{ $self->attributes() }
+        );
 
     $source .= <<"EOF";
 my \%attrs = (@attrs);
