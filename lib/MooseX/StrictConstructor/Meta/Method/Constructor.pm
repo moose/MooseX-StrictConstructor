@@ -25,7 +25,7 @@ override '_generate_BUILDALL' => sub ## no critic RequireArgUnpacking
     $source .= <<"EOF";
 my \%attrs = (@attrs);
 
-my \@bad = sort grep { ! \$attrs{\$_} }  keys \%params;
+my \@bad = sort grep { ! \$attrs{\$_} }  keys \%{ \$params };
 
 if (\@bad) {
     Carp::confess "Found unknown attribute(s) passed to the constructor: \@bad";

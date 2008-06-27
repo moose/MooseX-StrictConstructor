@@ -1,3 +1,8 @@
+0.06   2008-06-27
+
+- Changes to the immutable bits to work with the latest Moose (0.51).
+
+
 0.05   2008-04-18
 
 - The fix in 0.04 only worked for non-immutable classes.
