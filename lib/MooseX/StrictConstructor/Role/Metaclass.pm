@@ -1,13 +1,12 @@
-package MooseX::StrictConstructor::Meta::Class;
+package MooseX::StrictConstructor::Role::Metaclass;
 
 use strict;
 use warnings;
 
 use MooseX::StrictConstructor::Meta::Method::Constructor;
 
-use Moose;
+use Moose::Role;
 
-extends 'Moose::Meta::Class';
 
 around 'make_immutable' => sub ## no critic RequireArgUnpacking
 {
@@ -21,7 +20,7 @@ around 'make_immutable' => sub ## no critic RequireArgUnpacking
             );
 };
 
-no Moose;
+no Moose::Role;
 
 
 1;

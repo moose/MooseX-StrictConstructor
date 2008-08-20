@@ -5,27 +5,53 @@ use warnings;
 
 our $VERSION = '0.06';
 
-use Moose;
-use MooseX::Object::StrictConstructor;
+use Class::MOP ();
+use Moose ();
+use Moose::Exporter;
+use MooseX::StrictConstructor::Role::Object;
+use MooseX::StrictConstructor::Role::Metaclass;
 
+Moose::Exporter->setup_import_methods( also => 'Moose' );
 
-sub import
+sub init_meta
 {
-    my $caller = caller();
+    shift;
+    my %p = @_;
 
-    return if $caller eq 'main';
+    Moose->init_meta(%p);
 
-    Moose::init_meta( $caller,
-                      'MooseX::Object::StrictConstructor',
-                      'MooseX::StrictConstructor::Meta::Class',
-                    );
+    my $caller = $p{for_class};
 
-    Moose->import( { into => $caller } );
+    my $metameta = $caller->meta()->meta();
+    unless ( $metameta->can('does_role')
+             && $metameta->does_role( 'MooseX::StrictConstructor::Role::Metaclass' ) )
+    {
+        my $new_meta =
+            Moose::Meta::Class->create_anon_class
+                ( superclasses => [ ref $caller->meta() ],
+                  roles        => [ 'MooseX::StrictConstructor::Role::Metaclass' ],
+                  cache        => 1,
+                );
 
-    return;
+        Class::MOP::remove_metaclass_by_name($caller);
+
+        $new_meta->name()->initialize($caller);
+    }
+
+    unless ( $caller->meta()->does_role('MooseX::StrictConstructor::Role::Object') )
+    {
+        my $new_base =
+            Moose::Meta::Class->create_anon_class
+                ( superclasses => [ $caller->meta()->superclasses() ],
+                  roles        => [ 'MooseX::StrictConstructor::Role::Object' ],
+                  cache        => 1,
+                );
+
+        $caller->meta()->superclasses( $new_base->name() );
+    }
+
+    return $caller->meta();
 }
-
-
 
 1;
 

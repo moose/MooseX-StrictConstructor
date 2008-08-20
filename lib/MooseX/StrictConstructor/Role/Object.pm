@@ -1,16 +1,10 @@
-package MooseX::Object::StrictConstructor;
+package MooseX::StrictConstructor::Role::Object;
 
 use strict;
 use warnings;
 
-use Moose;
+use Moose::Role;
 
-use Carp 'confess';
-
-use metaclass 'MooseX::StrictConstructor::Meta::Class';
-
-
-extends 'Moose::Object';
 
 after 'BUILDALL' => sub
 {
@@ -34,6 +28,7 @@ after 'BUILDALL' => sub
     return;
 };
 
+no Moose::Role;
 
 1;
 
