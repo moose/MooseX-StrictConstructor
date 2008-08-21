@@ -8,7 +8,7 @@ use Moose;
 
 extends 'Moose::Meta::Method::Constructor';
 
-override '_generate_BUILDALL' => sub ## no critic RequireArgUnpacking
+override '_generate_BUILDALL' => sub
 {
     my $self = shift;
 

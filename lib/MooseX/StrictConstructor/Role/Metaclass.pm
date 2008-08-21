@@ -8,7 +8,7 @@ use MooseX::StrictConstructor::Meta::Method::Constructor;
 use Moose::Role;
 
 
-around 'make_immutable' => sub ## no critic RequireArgUnpacking
+around 'make_immutable' => sub
 {
     my $orig = shift;
     my $self = shift;
