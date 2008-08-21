@@ -23,7 +23,9 @@ sub init_meta
 
     my $caller = $p{for_class};
 
-    my $metameta = $caller->meta()->meta();
+    my $old_meta = $caller->meta();
+
+    my $metameta = $old_meta->meta();
     unless ( $metameta->can('does_role')
              && $metameta->does_role( 'MooseX::StrictConstructor::Role::Metaclass' ) )
     {
@@ -36,7 +38,13 @@ sub init_meta
 
         Class::MOP::remove_metaclass_by_name($caller);
 
-        $new_meta->name()->initialize($caller);
+        $new_meta->name()->initialize( $caller,
+                                       map { $_ => $old_meta->$_() }
+                                       qw( attribute_metaclass
+                                           method_metaclass
+                                           instance_metaclass
+                                         )
+                                     );
     }
 
     unless ( $caller->meta()->does_role('MooseX::StrictConstructor::Role::Object') )
