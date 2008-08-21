@@ -1,32 +1,35 @@
-0.06   2008-06-27
+0.06_01  2008-08-21
+
+
+0.06     2008-06-27
 
 - Changes to the immutable bits to work with the latest Moose (0.51).
 
 
-0.05   2008-04-18
+0.05     2008-04-18
 
 - The fix in 0.04 only worked for non-immutable classes.
 
 
-0.04   2008-04-18
+0.04     2008-04-18
 
 - This module did not respect the init_arg attribute setting, and used
   the attribute name instead. Reported by Matt Trout. RT #34507.
 
 
-0.03   2007-11-20
+0.03     2007-11-20
 
 - Require Moose 0.26, since that's first version to offer init_meta(),
   apparently.
 
 
-0.02   2007-11-15
+0.02     2007-11-15
 
 - Moose was missing from the prereq list. Reported by Slaven Rezic.
 
 - Version 0.01 did not work after a class was made immutable.
 
 
-0.01   2007-11-14
+0.01     2007-11-14
 
 - First version, released on an unsuspecting world.
