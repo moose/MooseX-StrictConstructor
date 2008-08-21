@@ -4,7 +4,7 @@ use strict;
 use warnings;
 
 our $VERSION = '0.06_01';
-eval $VERSION = $VERSION;
+$VERSION = eval $VERSION;
 
 use Class::MOP ();
 use Moose ();
