@@ -1,18 +1,18 @@
-package MooseX::StrictConstructor::Meta::Method::Constructor;
+package MooseX::StrictConstructor::Role::Constructor;
 
 use strict;
 use warnings;
 
 use Carp ();
-use Moose;
 
-extends 'Moose::Meta::Method::Constructor';
+use Moose::Role;
 
-override '_generate_BUILDALL' => sub
+around '_generate_BUILDALL' => sub
 {
+    my $orig = shift;
     my $self = shift;
 
-    my $source = super();
+    my $source = $self->$orig();
     $source .= ";\n" if $source;
 
     my @attrs =
@@ -35,8 +35,7 @@ EOF
     return $source;
 };
 
-no Moose;
-
+no Moose::Role;
 
 1;
 

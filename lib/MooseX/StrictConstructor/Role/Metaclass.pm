@@ -7,7 +7,24 @@ use MooseX::StrictConstructor::Meta::Method::Constructor;
 
 use Moose::Role;
 
+has 'constructor_class' =>
+    ( is         => 'ro',
+      isa        => 'ClassName',
+      lazy_build => 1,
+    );
 
+sub _build_constructor_class
+{
+    return
+        Moose::Meta::Class->create_anon_class
+            ( superclasses => [ 'Moose::Meta::Method::Constructor' ],
+              roles        => [ 'MooseX::StrictConstructor::Role::Constructor' ],
+              cache        => 1,
+            )->name();
+}
+
+# If Moose::Meta::Class had a constructor_class attribute, this
+# wrapper would not be necessary.
 around 'make_immutable' => sub
 {
     my $orig = shift;
@@ -15,7 +32,7 @@ around 'make_immutable' => sub
 
     return
         $self->$orig
-            ( constructor_class => 'MooseX::StrictConstructor::Meta::Method::Constructor',
+            ( constructor_class => $self->constructor_class(),
               @_,
             );
 };
