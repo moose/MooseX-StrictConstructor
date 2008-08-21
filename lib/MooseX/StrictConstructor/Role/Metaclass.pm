@@ -3,7 +3,7 @@ package MooseX::StrictConstructor::Role::Metaclass;
 use strict;
 use warnings;
 
-use MooseX::StrictConstructor::Meta::Method::Constructor;
+use MooseX::StrictConstructor::Role::Constructor;
 
 use Moose::Role;
 
