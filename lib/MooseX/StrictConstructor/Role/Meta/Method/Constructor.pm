@@ -1,4 +1,4 @@
-package MooseX::StrictConstructor::Role::Constructor;
+package MooseX::StrictConstructor::Role::Meta::Method::Constructor;
 
 use strict;
 use warnings;
@@ -45,7 +45,7 @@ __END__
 
 =head1 NAME
 
-MooseX::StrictConstructor::Meta::Method::Constructor - A meta class to make immutable constructors strict
+MooseX::StrictConstructor::Role::Meta::Method::Constructor - A role to make immutable constructors strict
 
 =head1 SYNOPSIS
 
@@ -53,11 +53,9 @@ MooseX::StrictConstructor::Meta::Method::Constructor - A meta class to make immu
 
 =head1 DESCRIPTION
 
-This class simply overrides C<_generate_BUILDALL()> in
-C<Moose::Meta::Method::Constructor> so that classes that are made
-immutable have a strict constructor.
-
-You should never have to use this class directly.
+This role simply wraps C<_generate_BUILDALL()> (from
+C<Moose::Meta::Method::Constructor>) so that immutable classes have a
+strict constructor.
 
 =head1 AUTHOR
 
@@ -65,7 +63,7 @@ Dave Rolsky, C<< <autarch@urth.org> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2007 Dave Rolsky, All Rights Reserved.
+Copyright 2007-2008 Dave Rolsky, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.

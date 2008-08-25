@@ -38,13 +38,14 @@ __END__
 
 =head1 NAME
 
-MooseX::Object::StrictConstructor - Implements strict constructors as a Moose::Object subclass
+MooseX::StrictConstructor::Role::Object - A role which implements a stricto constructor for Moose::Object
 
 =head1 DESCRIPTION
 
-This class has no external interface. When you use
-C<MooseX::StrictConstructor>, your objects will subclass this class
-rather than Moose::Object.
+When you use C<MooseX::StrictConstructor>, your objects will have this
+role applied to them. It provides a method modifier for C<BUILDALL()>
+from C<Moose::Object> that implements strict argument checking for
+your class.
 
 =head1 AUTHOR
 
@@ -52,7 +53,7 @@ Dave Rolsky, C<< <autarch@urth.org> >>
 
 =head1 COPYRIGHT & LICENSE
 
-Copyright 2007 Dave Rolsky, All Rights Reserved.
+Copyright 2007-2008 Dave Rolsky, All Rights Reserved.
 
 This program is free software; you can redistribute it and/or modify
 it under the same terms as Perl itself.
