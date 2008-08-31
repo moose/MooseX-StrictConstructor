@@ -13,7 +13,8 @@ use Moose::Util::MetaRole;
 use MooseX::StrictConstructor::Role::Object;
 use MooseX::StrictConstructor::Role::Meta::Method::Constructor;
 
-Moose::Exporter->setup_import_methods( also => 'Moose' );
+
+Moose::Exporter->setup_import_methods();
 
 sub init_meta
 {
@@ -53,7 +54,8 @@ MooseX::StrictConstructor - Make your object constructors blow up on unknown att
 
     package My::Class;
 
-    use MooseX::StrictConstructor; # instead of use Moose
+    use Moose;
+    use MooseX::StrictConstructor;
 
     has 'size' => ...;
 
@@ -64,10 +66,10 @@ MooseX::StrictConstructor - Make your object constructors blow up on unknown att
 
 =head1 DESCRIPTION
 
-Using this class to load Moose instead of just loading using Moose
-itself makes your constructors "strict". If your constructor is called
-with an attribute init argument that your class does not declare, then
-it calls "Carp::confess()". This is a great way to catch small typos.
+Simply loading this module makes your constructors "strict". If your
+constructor is called with an attribute init argument that your class
+does not declare, then it calls "Carp::confess()". This is a great way
+to catch small typos.
 
 =head2 Subverting Strictness
 
