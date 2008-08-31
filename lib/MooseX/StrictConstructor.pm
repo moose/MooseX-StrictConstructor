@@ -7,7 +7,7 @@ our $VERSION = '0.06_01';
 $VERSION = eval $VERSION;
 
 use Class::MOP ();
-use Moose ();
+use Moose 0.5504 ();
 use Moose::Exporter;
 use Moose::Util::MetaRole;
 use MooseX::StrictConstructor::Role::Object;
