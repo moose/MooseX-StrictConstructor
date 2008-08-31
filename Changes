@@ -2,6 +2,8 @@
 
 * This module no longer exports Moose's sugar. Just use Moose instead.
 
+- Various doc fixes to reflect changes since 0.06.
+
 
 0.06_01  2008-08-30
 
