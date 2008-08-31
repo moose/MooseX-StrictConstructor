@@ -38,7 +38,15 @@ __END__
 
 =head1 NAME
 
-MooseX::StrictConstructor::Role::Object - A role which implements a stricto constructor for Moose::Object
+MooseX::StrictConstructor::Role::Object - A role which implements a strict constructor for Moose::Object
+
+=head1 SYNOPSIS
+
+  Moose::Util::MetaRole::apply_base_class_roles
+      ( for_class => $caller,
+        roles =>
+        [ 'MooseX::StrictConstructor::Role::Object' ],
+      );
 
 =head1 DESCRIPTION
 
