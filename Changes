@@ -1,4 +1,8 @@
-0.06_01  2008-08-21
+0.06_01  2008-08-30
+
+- Rewrote this distro's functionality as roles to take advantage of
+  Moose::Util::MetaRole. Less code, plays better with other
+  extensions.
 
 
 0.06     2008-06-27
