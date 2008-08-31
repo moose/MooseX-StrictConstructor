@@ -1,3 +1,8 @@
+0.06_02  2008-08-30
+
+* This module no longer exports Moose's sugar. Just use Moose instead.
+
+
 0.06_01  2008-08-30
 
 - Rewrote this distro's functionality as roles to take advantage of
