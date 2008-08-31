@@ -15,6 +15,7 @@ use Test::More tests => 15;
 {
     package Stricter;
 
+    use Moose;
     use MooseX::StrictConstructor;
 
     has 'thing' => ( is => 'rw' );
@@ -23,6 +24,7 @@ use Test::More tests => 15;
 {
     package Subclass;
 
+    use Moose;
     use MooseX::StrictConstructor;
 
     extends 'Stricter';
@@ -33,6 +35,7 @@ use Test::More tests => 15;
 {
     package Tricky;
 
+    use Moose;
     use MooseX::StrictConstructor;
 
     has 'thing' => ( is => 'rw' );
@@ -49,6 +52,7 @@ use Test::More tests => 15;
 {
     package InitArg;
 
+    use Moose;
     use MooseX::StrictConstructor;
 
     has 'thing' => ( is => 'rw', 'init_arg' => 'other' );
@@ -58,6 +62,7 @@ use Test::More tests => 15;
 {
     package ImmutableInitArg;
 
+    use Moose;
     use MooseX::StrictConstructor;
 
     has 'thing' => ( is => 'rw', 'init_arg' => 'other' );
@@ -70,6 +75,7 @@ use Test::More tests => 15;
 {
     package Immutable;
 
+    use Moose;
     use MooseX::StrictConstructor;
 
     has 'thing' => ( is => 'rw' );
@@ -81,6 +87,7 @@ use Test::More tests => 15;
 {
     package ImmutableTricky;
 
+    use Moose;
     use MooseX::StrictConstructor;
 
     has 'thing' => ( is => 'rw' );
