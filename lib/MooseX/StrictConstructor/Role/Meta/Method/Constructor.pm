@@ -49,7 +49,11 @@ MooseX::StrictConstructor::Role::Meta::Method::Constructor - A role to make immu
 
 =head1 SYNOPSIS
 
-  use MooseX::StrictConstructor;
+  Moose::Util::MetaRole::apply_metaclass_roles
+      ( for_class => $caller,
+        constructor_class_roles =>
+        ['MooseX::StrictConstructor::Role::Meta::Method::Constructor'],
+      );
 
 =head1 DESCRIPTION
 
