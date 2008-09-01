@@ -1,14 +1,14 @@
 use strict;
 use warnings;
 
-require 5.00601;
+require 5.008;
 
 use Module::Build;
 
 my $builder = Module::Build->new
     ( module_name        => 'MooseX::StrictConstructor',
       license            => 'perl',
-      requires           => { 'Moose'      => '0.55_04',
+      requires           => { 'Moose'      => '0.56',
                               'Test::More' => '0',
                             },
       create_makefile_pl => 'passthrough',
