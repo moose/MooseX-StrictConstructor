@@ -8,7 +8,7 @@ use Module::Build;
 my $builder = Module::Build->new
     ( module_name        => 'MooseX::StrictConstructor',
       license            => 'perl',
-      requires           => { 'Moose'      => '0.56',
+      requires           => { 'Moose'      => '0.73_01',
                               'Test::More' => '0',
                             },
       create_makefile_pl => 'passthrough',

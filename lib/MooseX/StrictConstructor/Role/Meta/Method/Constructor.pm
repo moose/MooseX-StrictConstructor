@@ -19,7 +19,7 @@ around '_generate_BUILDALL' => sub
         ( map { "$_ => 1," }
           grep { defined }
           map { $_->init_arg() }
-          @{ $self->attributes() }
+          @{ $self->_attributes() }
         );
 
     $source .= <<"EOF";
