@@ -1,7 +1,7 @@
 use strict;
 use warnings;
 
-use Test::More tests => 15;
+use Test::More;
 
 {
 
@@ -184,3 +184,5 @@ like(
     $@, qr/unknown attribute.+: agent/,
     'ImmutableTricky still blows up on unknown params other than spy'
 );
+
+done_testing();

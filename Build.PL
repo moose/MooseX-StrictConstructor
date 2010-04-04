@@ -9,8 +9,10 @@ my $builder = Module::Build->new(
     module_name => 'MooseX::StrictConstructor',
     license     => 'perl',
     requires    => {
-        'Moose'      => '0.74',
-        'Test::More' => '0',
+        'Moose' => '0.74',
+    },
+    build_requires => {
+        'Test::More' => '0.88',
     },
     create_makefile_pl => 'passthrough',
     create_readme      => 1,
