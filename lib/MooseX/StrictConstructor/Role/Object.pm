@@ -5,24 +5,21 @@ use warnings;
 
 use Moose::Role;
 
-
-after 'BUILDALL' => sub
-{
+after 'BUILDALL' => sub {
     my $self   = shift;
     my $params = shift;
 
-    my %attrs =
-        ( map { $_ => 1 }
-          grep { defined }
-          map { $_->init_arg() }
-          $self->meta()->get_all_attributes()
-        );
+    my %attrs = (
+        map { $_ => 1 }
+        grep {defined}
+        map  { $_->init_arg() } $self->meta()->get_all_attributes()
+    );
 
-    my @bad = sort grep { ! $attrs{$_} }  keys %{ $params };
+    my @bad = sort grep { !$attrs{$_} } keys %{$params};
 
-    if (@bad)
-    {
-        confess "Found unknown attribute(s) init_arg passed to the constructor: @bad";
+    if (@bad) {
+        confess
+            "Found unknown attribute(s) init_arg passed to the constructor: @bad";
     }
 
     return;

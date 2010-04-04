@@ -7,20 +7,18 @@ use Carp ();
 
 use Moose::Role;
 
-around '_generate_BUILDALL' => sub
-{
+around '_generate_BUILDALL' => sub {
     my $orig = shift;
     my $self = shift;
 
     my $source = $self->$orig();
     $source .= ";\n" if $source;
 
-    my @attrs =
-        ( map { "$_ => 1," }
-          grep { defined }
-          map { $_->init_arg() }
-          @{ $self->_attributes() }
-        );
+    my @attrs = (
+        map  {"$_ => 1,"}
+        grep {defined}
+        map  { $_->init_arg() } @{ $self->_attributes() }
+    );
 
     $source .= <<"EOF";
 my \%attrs = (@attrs);

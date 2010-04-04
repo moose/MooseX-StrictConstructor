@@ -12,11 +12,9 @@ use Moose::Util::MetaRole;
 use MooseX::StrictConstructor::Role::Object;
 use MooseX::StrictConstructor::Role::Meta::Method::Constructor;
 
-
 Moose::Exporter->setup_import_methods();
 
-sub init_meta
-{
+sub init_meta {
     shift;
     my %p = @_;
 
@@ -24,17 +22,17 @@ sub init_meta
 
     my $caller = $p{for_class};
 
-    Moose::Util::MetaRole::apply_metaclass_roles
-        ( for_class => $caller,
-          constructor_class_roles =>
-          ['MooseX::StrictConstructor::Role::Meta::Method::Constructor'],
-        );
+    Moose::Util::MetaRole::apply_metaclass_roles(
+        for_class => $caller,
+        constructor_class_roles =>
+            ['MooseX::StrictConstructor::Role::Meta::Method::Constructor'],
+    );
 
-    Moose::Util::MetaRole::apply_base_class_roles
-        ( for_class => $caller,
-          roles =>
-          [ 'MooseX::StrictConstructor::Role::Object' ],
-        );
+    Moose::Util::MetaRole::apply_base_class_roles(
+        for_class => $caller,
+        roles =>
+            ['MooseX::StrictConstructor::Role::Object'],
+    );
 
     return $caller->meta();
 }
