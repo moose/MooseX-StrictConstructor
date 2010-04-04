@@ -1,10 +1,11 @@
 use strict;
 use warnings;
 
+use Test::Exception;
+use Test::Moose qw( with_immutable );
 use Test::More;
 
 {
-
     package Standard;
 
     use Moose;
@@ -13,7 +14,6 @@ use Test::More;
 }
 
 {
-
     package Stricter;
 
     use Moose;
@@ -23,7 +23,6 @@ use Test::More;
 }
 
 {
-
     package Subclass;
 
     use Moose;
@@ -35,7 +34,6 @@ use Test::More;
 }
 
 {
-
     package Tricky;
 
     use Moose;
@@ -52,7 +50,6 @@ use Test::More;
 }
 
 {
-
     package InitArg;
 
     use Moose;
@@ -62,127 +59,44 @@ use Test::More;
     has 'size'  => ( is => 'rw', 'init_arg' => undef );
 }
 
-{
+my @classes = qw( Standard Stricter Subclass Tricky InitArg );
 
-    package ImmutableInitArg;
+with_immutable {
+    lives_ok { Standard->new( thing => 1, bad => 99 ) }
+    'standard Moose class ignores unknown params';
 
-    use Moose;
-    use MooseX::StrictConstructor;
+    throws_ok { Stricter->new( thing => 1, bad => 99 ) }
+    qr/unknown attribute.+: bad/,
+        'strict constructor blows up on unknown params';
 
-    has 'thing' => ( is => 'rw', 'init_arg' => 'other' );
-    has 'size'  => ( is => 'rw', 'init_arg' => undef );
+    lives_ok { Subclass->new( thing => 1, size => 'large' ) }
+    'subclass constructor handles known attributes correctly';
 
-    no Moose;
-    __PACKAGE__->meta()->make_immutable();
-}
+    throws_ok { Subclass->new( thing => 1, bad => 99 ) }
+    qr/unknown attribute.+: bad/,
+        'subclass correctly recognizes bad attribute';
 
-{
+    lives_ok { Tricky->new( thing => 1, spy => 99 ) }
+    'can work around strict constructor by deleting params in BUILD()';
 
-    package Immutable;
+    throws_ok { Tricky->new( thing => 1, agent => 99 ) }
+    qr/unknown attribute.+: agent/,
+        'Tricky still blows up on unknown params other than spy';
 
-    use Moose;
-    use MooseX::StrictConstructor;
+    throws_ok { Subclass->new( thing => 1, bad => 99 ) }
+    qr/unknown attribute.+: bad/,
+        'subclass constructor blows up on unknown params';
 
-    has 'thing' => ( is => 'rw' );
+    throws_ok { InitArg->new( thing => 1 ) }
+    qr/unknown attribute.+: thing/,
+        'InitArg blows up with attribute name';
 
-    no Moose;
-    __PACKAGE__->meta()->make_immutable();
-}
+    throws_ok { InitArg->new( size => 1 ) }
+    qr/unknown attribute.+: size/,
+        'InitArg blows up when given attribute with undef init_arg';
 
-{
-
-    package ImmutableTricky;
-
-    use Moose;
-    use MooseX::StrictConstructor;
-
-    has 'thing' => ( is => 'rw' );
-
-    sub BUILD {
-        my $self   = shift;
-        my $params = shift;
-
-        delete $params->{spy};
-    }
-
-    no Moose;
-    __PACKAGE__->meta()->make_immutable();
-}
-
-eval { Standard->new( thing => 1, bad => 99 ) };
-is( $@, '', 'standard Moose class ignores unknown params' );
-
-eval { Stricter->new( thing => 1, bad => 99 ) };
-like( $@, qr/unknown attribute.+: bad/,
-    'strict constructor blows up on unknown params' );
-
-eval { Subclass->new( thing => 1, size => 'large' ) };
-is( $@, '', 'subclass constructor handles known attributes correctly' );
-
-eval { Tricky->new( thing => 1, spy => 99 ) };
-is( $@, '',
-    'can work around strict constructor by deleting params in BUILD()' );
-
-eval { Tricky->new( thing => 1, agent => 99 ) };
-like( $@, qr/unknown attribute.+: agent/,
-    'Tricky still blows up on unknown params other than spy' );
-
-eval { Subclass->new( thing => 1, bad => 99 ) };
-like( $@, qr/unknown attribute.+: bad/,
-    'subclass constructor blows up on unknown params' );
-
-eval { InitArg->new( thing => 1 ) };
-like(
-    $@, qr/unknown attribute.+: thing/,
-    'InitArg blows up with attribute name'
-);
-
-eval { InitArg->new( size => 1 ) };
-like(
-    $@, qr/unknown attribute.+: size/,
-    'InitArg blows up when given attribute with undef init_arg'
-);
-
-eval { InitArg->new( other => 1 ) };
-is(
-    $@, '',
-    'InitArg works when given proper init_arg'
-);
-
-eval { ImmutableInitArg->new( thing => 1 ) };
-like(
-    $@, qr/unknown attribute.+: thing/,
-    'ImmutableInitArg blows up with attribute name'
-);
-
-eval { ImmutableInitArg->new( size => 1 ) };
-like(
-    $@, qr/unknown attribute.+: size/,
-    'ImmutableInitArg blows up when given attribute with undef init_arg'
-);
-
-eval { ImmutableInitArg->new( other => 1 ) };
-is(
-    $@, '',
-    'ImmutableInitArg works when given proper init_arg'
-);
-
-eval { Immutable->new( thing => 1, bad => 99 ) };
-like(
-    $@, qr/unknown attribute.+: bad/,
-    'strict constructor in immutable class blows up on unknown params'
-);
-
-eval { ImmutableTricky->new( thing => 1, spy => 99 ) };
-is(
-    $@, '',
-    'immutable class can work around strict constructor by deleting params in BUILD()'
-);
-
-eval { ImmutableTricky->new( thing => 1, agent => 99 ) };
-like(
-    $@, qr/unknown attribute.+: agent/,
-    'ImmutableTricky still blows up on unknown params other than spy'
-);
+    lives_ok { InitArg->new( other => 1 ) }
+    'InitArg works when given proper init_arg';
+} @classes;
 
 done_testing();
