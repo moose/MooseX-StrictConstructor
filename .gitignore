@@ -10,6 +10,8 @@
 !.gitignore
 MooseX-StrictConstructor*
 /Debian_CPANTS.txt
+/README
+/Makefile.PL
 *.bs
 *.c
 *.o
