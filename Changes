@@ -1,3 +1,8 @@
+0.09     2010-07-14
+
+- Use modern Moose APIs, to avoid warnings with the next Moose release.
+
+
 0.08     2009-04-07
 
 - Make this module work with Moose 0.73_01+.
