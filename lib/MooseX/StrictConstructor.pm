@@ -6,7 +6,7 @@ use warnings;
 our $VERSION = '0.08';
 $VERSION = eval $VERSION;
 
-use Moose 0.74 ();
+use Moose 0.94 ();
 use Moose::Exporter;
 use Moose::Util::MetaRole;
 use MooseX::StrictConstructor::Role::Object;
@@ -22,14 +22,16 @@ sub init_meta {
 
     my $caller = $p{for_class};
 
-    Moose::Util::MetaRole::apply_metaclass_roles(
-        for_class => $caller,
-        constructor_class_roles =>
-            ['MooseX::StrictConstructor::Role::Meta::Method::Constructor'],
+    Moose::Util::MetaRole::apply_metaroles(
+        for             => $caller,
+        class_metaroles => {
+            constructor => [
+                'MooseX::StrictConstructor::Role::Meta::Method::Constructor']
+        },
     );
 
     Moose::Util::MetaRole::apply_base_class_roles(
-        for_class => $caller,
+        for => $caller,
         roles =>
             ['MooseX::StrictConstructor::Role::Object'],
     );
