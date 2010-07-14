@@ -3,51 +3,27 @@ package MooseX::StrictConstructor;
 use strict;
 use warnings;
 
-our $VERSION = '0.08';
-$VERSION = eval $VERSION;
-
 use Moose 0.94 ();
 use Moose::Exporter;
 use Moose::Util::MetaRole;
 use MooseX::StrictConstructor::Role::Object;
 use MooseX::StrictConstructor::Role::Meta::Method::Constructor;
 
-Moose::Exporter->setup_import_methods();
-
-sub init_meta {
-    shift;
-    my %p = @_;
-
-    Moose->init_meta(%p);
-
-    my $caller = $p{for_class};
-
-    Moose::Util::MetaRole::apply_metaroles(
-        for             => $caller,
-        class_metaroles => {
-            constructor => [
-                'MooseX::StrictConstructor::Role::Meta::Method::Constructor']
-        },
-    );
-
-    Moose::Util::MetaRole::apply_base_class_roles(
-        for => $caller,
-        roles =>
-            ['MooseX::StrictConstructor::Role::Object'],
-    );
-
-    return $caller->meta();
-}
+Moose::Exporter->setup_import_methods(
+    class_metaroles => {
+        constructor =>
+            ['MooseX::StrictConstructor::Role::Meta::Method::Constructor']
+    },
+    base_class_roles => ['MooseX::StrictConstructor::Role::Object'],
+);
 
 1;
+
+# ABSTRACT: Make your object constructors blow up on unknown attributes
 
 __END__
 
 =pod
-
-=head1 NAME
-
-MooseX::StrictConstructor - Make your object constructors blow up on unknown attributes
 
 =head1 SYNOPSIS
 
@@ -90,10 +66,6 @@ you can delete it from the hash reference of parameters.
       }
   }
 
-=head1 AUTHOR
-
-Dave Rolsky, C<< <autarch@urth.org> >>
-
 =head1 BUGS
 
 Please report any bugs or feature requests to
@@ -101,12 +73,5 @@ C<bug-moosex-strictconstructor@rt.cpan.org>, or through the web
 interface at L<http://rt.cpan.org>.  I will be notified, and then
 you'll automatically be notified of progress on your bug as I make
 changes.
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2007-2008 Dave Rolsky, All Rights Reserved.
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
