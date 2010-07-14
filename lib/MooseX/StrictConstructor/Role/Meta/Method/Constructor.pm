@@ -37,13 +37,11 @@ no Moose::Role;
 
 1;
 
+# ABSTRACT: A role to make immutable constructors strict
+
 __END__
 
 =pod
-
-=head1 NAME
-
-MooseX::StrictConstructor::Role::Meta::Method::Constructor - A role to make immutable constructors strict
 
 =head1 SYNOPSIS
 
@@ -58,17 +56,6 @@ MooseX::StrictConstructor::Role::Meta::Method::Constructor - A role to make immu
 This role simply wraps C<_generate_BUILDALL()> (from
 C<Moose::Meta::Method::Constructor>) so that immutable classes have a
 strict constructor.
-
-=head1 AUTHOR
-
-Dave Rolsky, C<< <autarch@urth.org> >>
-
-=head1 COPYRIGHT & LICENSE
-
-Copyright 2007-2008 Dave Rolsky, All Rights Reserved.
-
-This program is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
 
 =cut
 
