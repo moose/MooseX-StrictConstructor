@@ -3,6 +3,7 @@ package MooseX::StrictConstructor::Role::Meta::Method::Constructor;
 use strict;
 use warnings;
 
+use B ();
 use Carp ();
 
 use Moose::Role;
@@ -15,8 +16,8 @@ around '_generate_BUILDALL' => sub {
     $source .= ";\n" if $source;
 
     my @attrs = (
-        "__INSTANCE__ => 1",
-        map  {"$_ => 1,"}
+        "__INSTANCE__ => 1,",
+        map { B::perlstring($_) . ' => 1,' }
         grep {defined}
         map  { $_->init_arg() } @{ $self->_attributes() }
     );

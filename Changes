@@ -3,6 +3,8 @@
 - Ignore __INSTANCE__ when passed to the constructor. Patch by Jesse
   Luehrs. RT #59236.
 
+- All init args are quoted in the inlined constructor.
+
 
 0.09     2010-07-14
 
