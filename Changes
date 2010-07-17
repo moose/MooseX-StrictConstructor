@@ -1,3 +1,9 @@
+0.10     2010-07-16
+
+- Ignore __INSTANCE__ when passed to the constructor. Patch by Jesse
+  Luehrs. RT #59236.
+
+
 0.09     2010-07-14
 
 - Use modern Moose APIs, to avoid warnings with the next Moose release.
