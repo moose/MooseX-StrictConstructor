@@ -47,11 +47,13 @@ __END__
 
 =head1 SYNOPSIS
 
-  Moose::Util::MetaRole::apply_metaclass_roles
-      ( for_class => $caller,
-        constructor_class_roles =>
-        ['MooseX::StrictConstructor::Role::Meta::Method::Constructor'],
-      );
+  Moose::Util::MetaRole::apply_metaroles(
+      for_class => $caller,
+      class     => {
+          constructor =>
+              ['MooseX::StrictConstructor::Role::Meta::Method::Constructor'],
+      },
+  );
 
 =head1 DESCRIPTION
 
