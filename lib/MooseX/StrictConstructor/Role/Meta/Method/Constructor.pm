@@ -15,6 +15,7 @@ around '_generate_BUILDALL' => sub {
     $source .= ";\n" if $source;
 
     my @attrs = (
+        "__INSTANCE__ => 1",
         map  {"$_ => 1,"}
         grep {defined}
         map  { $_->init_arg() } @{ $self->_attributes() }

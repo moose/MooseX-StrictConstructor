@@ -10,6 +10,7 @@ after 'BUILDALL' => sub {
     my $params = shift;
 
     my %attrs = (
+        __INSTANCE__ => 1,
         map { $_ => 1 }
         grep {defined}
         map  { $_->init_arg() } $self->meta()->get_all_attributes()
