@@ -1,3 +1,9 @@
+0.11     2010-09-09
+
+- Added a missing test dep on Test::Exception. Reported by Phillip Moore. RT
+  #61205.
+
+
 0.10     2010-07-16
 
 - Ignore __INSTANCE__ when passed to the constructor. Patch by Jesse
