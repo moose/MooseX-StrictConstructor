@@ -7,12 +7,12 @@ use Moose 0.94 ();
 use Moose::Exporter;
 use Moose::Util::MetaRole;
 use MooseX::StrictConstructor::Role::Object;
-use MooseX::StrictConstructor::Role::Meta::Method::Constructor;
+use MooseX::StrictConstructor::Role::Meta::Class;
 
 Moose::Exporter->setup_import_methods(
     class_metaroles => {
-        constructor =>
-            ['MooseX::StrictConstructor::Role::Meta::Method::Constructor']
+        class =>
+            ['MooseX::StrictConstructor::Role::Meta::Class']
     },
     base_class_roles => ['MooseX::StrictConstructor::Role::Object'],
 );

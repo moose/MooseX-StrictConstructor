@@ -1,4 +1,4 @@
-package MooseX::StrictConstructor::Role::Meta::Method::Constructor;
+package MooseX::StrictConstructor::Role::Meta::Class;
 
 use strict;
 use warnings;
@@ -8,31 +8,27 @@ use Carp ();
 
 use Moose::Role;
 
-around '_generate_BUILDALL' => sub {
+around '_inline_BUILDALL' => sub {
     my $orig = shift;
     my $self = shift;
 
-    my $source = $self->$orig();
-    $source .= ";\n" if $source;
+    my @source = $self->$orig();
 
     my @attrs = (
         '__INSTANCE__ => 1,',
         map { B::perlstring($_) . ' => 1,' }
         grep {defined}
-        map  { $_->init_arg() } @{ $self->_attributes() }
+        map  { $_->init_arg() } $self->get_all_attributes()
     );
 
-    $source .= <<"EOF";
-my \%attrs = (@attrs);
-
-my \@bad = sort grep { ! \$attrs{\$_} }  keys \%{ \$params };
-
-if (\@bad) {
-    Carp::confess "Found unknown attribute(s) passed to the constructor: \@bad";
-}
-EOF
-
-    return $source;
+    return (
+        @source,
+        'my %attrs = (' . join(' ', @attrs) . ');',
+        'my @bad = sort grep { !$attrs{$_} } keys %{ $params };',
+        'if (@bad) {',
+            'Carp::confess "Found unknown attribute(s) passed to the constructor: @bad";',
+        '}',
+    );
 };
 
 no Moose::Role;
@@ -57,9 +53,8 @@ __END__
 
 =head1 DESCRIPTION
 
-This role simply wraps C<_generate_BUILDALL()> (from
-C<Moose::Meta::Method::Constructor>) so that immutable classes have a
+This role simply wraps C<_inline_BUILDALL()> (from
+C<Moose::Meta::Class>) so that immutable classes have a
 strict constructor.
 
 =cut
-

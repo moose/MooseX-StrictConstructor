@@ -1,3 +1,5 @@
+- Updated to work with new Moose
+
 0.12     2010-10-29
 
 - Switched tests to use Test::Fatal instead of Test::Exception.
