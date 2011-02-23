@@ -1,4 +1,8 @@
-- Updated to work with new Moose
+0.13     2011-02-22
+
+- This release provides forward compatibility with Moose 1.99+. It will still
+  work with Moose 1.23 as well. Most of the work was done by Jesse Luehrs.
+
 
 0.12     2010-10-29
 
