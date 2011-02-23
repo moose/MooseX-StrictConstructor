@@ -12,16 +12,16 @@ use MooseX::StrictConstructor::Role::Object;
     my %class_meta;
 
     if ( $Moose::VERSION < 1.9900 ) {
-        require MooseX::StrictConstructor::Role::Meta::Method::Constructor;
+        require MooseX::StrictConstructor::Trait::Method::Constructor;
         %class_meta = (
             constructor => [
-                'MooseX::StrictConstructor::Role::Meta::Method::Constructor']
+                'MooseX::StrictConstructor::Trait::Method::Constructor']
         );
     }
     else {
-        require MooseX::StrictConstructor::Role::Meta::Class;
+        require MooseX::StrictConstructor::Trait::Class;
         %class_meta
-            = ( class => ['MooseX::StrictConstructor::Role::Meta::Class'] );
+            = ( class => ['MooseX::StrictConstructor::Trait::Class'] );
     }
 
     Moose::Exporter->setup_import_methods(

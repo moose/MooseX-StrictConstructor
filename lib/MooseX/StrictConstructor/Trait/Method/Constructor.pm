@@ -1,4 +1,4 @@
-package MooseX::StrictConstructor::Role::Meta::Method::Constructor;
+package MooseX::StrictConstructor::Trait::Method::Constructor;
 
 use strict;
 use warnings;
@@ -51,7 +51,7 @@ __END__
       for_class => $caller,
       class     => {
           constructor =>
-              ['MooseX::StrictConstructor::Role::Meta::Method::Constructor'],
+              ['MooseX::StrictConstructor::Trait::Method::Constructor'],
       },
   );
 
