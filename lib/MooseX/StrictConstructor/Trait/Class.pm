@@ -1,12 +1,11 @@
 package MooseX::StrictConstructor::Trait::Class;
 
-use strict;
-use warnings;
+use Moose::Role;
+
+use namespace::autoclean;
 
 use B ();
 use Carp ();
-
-use Moose::Role;
 
 around '_inline_BUILDALL' => sub {
     my $orig = shift;
@@ -30,8 +29,6 @@ around '_inline_BUILDALL' => sub {
         '}',
     );
 };
-
-no Moose::Role;
 
 1;
 

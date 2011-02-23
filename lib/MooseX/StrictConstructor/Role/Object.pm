@@ -1,9 +1,8 @@
 package MooseX::StrictConstructor::Role::Object;
 
-use strict;
-use warnings;
-
 use Moose::Role;
+
+use namespace::autoclean;
 
 after 'BUILDALL' => sub {
     my $self   = shift;
@@ -25,8 +24,6 @@ after 'BUILDALL' => sub {
 
     return;
 };
-
-no Moose::Role;
 
 1;
 
