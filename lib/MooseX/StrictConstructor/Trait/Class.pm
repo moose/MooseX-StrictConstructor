@@ -41,16 +41,6 @@ __END__
 
 =pod
 
-=head1 SYNOPSIS
-
-  Moose::Util::MetaRole::apply_metaroles(
-      for_class => $caller,
-      class     => {
-          constructor =>
-              ['MooseX::StrictConstructor::Trait::Method::Constructor'],
-      },
-  );
-
 =head1 DESCRIPTION
 
 This role simply wraps C<_inline_BUILDALL()> (from
