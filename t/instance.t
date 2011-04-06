@@ -3,6 +3,7 @@ use warnings;
 
 use Test::More;
 use Test::Moose qw( with_immutable );
+use Test::Fatal;
 
 {
     package Foo;
@@ -11,11 +12,17 @@ use Test::Moose qw( with_immutable );
 }
 
 with_immutable {
-    eval { Foo->new( __INSTANCE__ => Foo->new ); };
-    ok( !$@, '__INSTANCE__ is ignored when passed to ->new' );
+    is(
+        exception { Foo->new( __INSTANCE__ => Foo->new ) },
+        undef,
+        '__INSTANCE__ is ignored when passed to ->new',
+    );
 
-    eval { Foo->meta->new_object( __INSTANCE__ => Foo->new ); };
-    ok( !$@, '__INSTANCE__ is ignored when passed to ->new_object' );
+    is(
+        exception { Foo->meta->new_object( __INSTANCE__ => Foo->new ) },
+        undef,
+        '__INSTANCE__ is ignored when passed to ->new_object',
+    );
 }
 'Foo';
 
