@@ -18,8 +18,8 @@ after 'BUILDALL' => sub {
     my @bad = sort grep { !$attrs{$_} } keys %{$params};
 
     if (@bad) {
-        confess
-            "Found unknown attribute(s) init_arg passed to the constructor: @bad";
+        Moose->throw_error(
+            "Found unknown attribute(s) init_arg passed to the constructor: @bad");
     }
 
     return;

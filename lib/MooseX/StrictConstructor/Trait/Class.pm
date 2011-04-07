@@ -5,7 +5,6 @@ use Moose::Role;
 use namespace::autoclean;
 
 use B ();
-use Carp ();
 
 around '_inline_BUILDALL' => sub {
     my $orig = shift;
@@ -25,7 +24,7 @@ around '_inline_BUILDALL' => sub {
         'my %attrs = (' . ( join ' ', @attrs ) . ');',
         'my @bad = sort grep { !$attrs{$_} } keys %{ $params };',
         'if (@bad) {',
-            'Carp::confess "Found unknown attribute(s) passed to the constructor: @bad";',
+            'Moose->throw_error("Found unknown attribute(s) passed to the constructor: @bad");',
         '}',
     );
 };

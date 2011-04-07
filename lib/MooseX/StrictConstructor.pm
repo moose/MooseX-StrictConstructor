@@ -56,7 +56,7 @@ __END__
 
 Simply loading this module makes your constructors "strict". If your
 constructor is called with an attribute init argument that your class
-does not declare, then it calls "Carp::confess()". This is a great way
+does not declare, then it calls C<Moose->throw_error()>. This is a great way
 to catch small typos.
 
 =head2 Subverting Strictness
