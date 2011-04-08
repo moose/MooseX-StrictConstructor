@@ -44,6 +44,17 @@ use Test::More;
 }
 
 {
+    package OtherStrictSubclass;
+
+    use Moose;
+    use MooseX::StrictConstructor;
+
+    extends 'Standard';
+
+    has 'size' => ( is => 'rw' );
+}
+
+{
     package Tricky;
 
     use Moose;
@@ -69,7 +80,7 @@ use Test::More;
     has 'size'  => ( is => 'rw', 'init_arg' => undef );
 }
 
-my @classes = qw( Standard Stricter Subclass StrictSubclass Tricky InitArg );
+my @classes = qw( Standard Stricter Subclass StrictSubclass OtherStrictSubclass Tricky InitArg );
 
 with_immutable {
     is(
@@ -103,6 +114,17 @@ with_immutable {
         exception { StrictSubclass->new( thing => 1, bad => 99 ) },
         qr/unknown attribute.+: bad/,
         'subclass that doesn\'t use strict correctly recognizes bad attribute'
+    );
+
+    is(
+        exception { OtherStrictSubclass->new( thing => 1, size => 'large', ) }, undef,
+        'strict subclass from parent that doesn\'t use strict constructor handles known attributes correctly'
+    );
+
+    like(
+        exception { OtherStrictSubclass->new( thing => 1, bad => 99 ) },
+        qr/unknown attribute.+: bad/,
+        'strict subclass from parent that doesn\'t use strict correctly recognizes bad attribute'
     );
 
     is(

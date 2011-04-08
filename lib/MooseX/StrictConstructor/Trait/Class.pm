@@ -29,6 +29,18 @@ around '_inline_BUILDALL' => sub {
     );
 };
 
+# if the Object role is applied first, and then a superclass added, we just
+# lost our BUILDALL modification.
+after superclasses => sub
+{
+    my $self = shift;
+    return if not @_;
+    Moose::Util::MetaRole::apply_base_class_roles(
+        for => $self->name,
+        roles => ['MooseX::StrictConstructor::Role::Object'],
+    )
+};
+
 1;
 
 # ABSTRACT: A role to make immutable constructors strict
