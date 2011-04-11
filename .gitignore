@@ -1,5 +1,6 @@
 /.#*
 /#*#
+.*.sw?
 /blib*
 /cover_db*
 /Build
