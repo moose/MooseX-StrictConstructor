@@ -9,19 +9,13 @@ use Moose::Util::MetaRole;
 use MooseX::StrictConstructor::Role::Object;
 
 {
-    my %class_meta;
+    my %class_meta = ( class => ['MooseX::StrictConstructor::Trait::Class'] );
+
 
     if ( $Moose::VERSION < 1.9900 ) {
         require MooseX::StrictConstructor::Trait::Method::Constructor;
-        %class_meta = (
-            constructor => [
-                'MooseX::StrictConstructor::Trait::Method::Constructor']
-        );
-    }
-    else {
-        require MooseX::StrictConstructor::Trait::Class;
-        %class_meta
-            = ( class => ['MooseX::StrictConstructor::Trait::Class'] );
+        $class_meta{constructor}
+            = ['MooseX::StrictConstructor::Trait::Method::Constructor'];
     }
 
     Moose::Exporter->setup_import_methods(

@@ -27,7 +27,7 @@ around '_inline_BUILDALL' => sub {
             'Moose->throw_error("Found unknown attribute(s) passed to the constructor: @bad");',
         '}',
     );
-};
+} if $Moose::VERSION >= 1.9900;
 
 # If the base class role is applied first, and then a superclass is added, we
 # lose the role.
