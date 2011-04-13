@@ -37,7 +37,7 @@ after superclasses => sub {
     return unless @_;
 
     Moose::Util::MetaRole::apply_base_class_roles(
-        for   => $self->name,
+        for   => $self->name(),
         roles => ['MooseX::StrictConstructor::Role::Object'],
     );
 };
