@@ -80,7 +80,8 @@ use Test::More;
     has 'size'  => ( is => 'rw', 'init_arg' => undef );
 }
 
-my @classes = qw( Standard Stricter Subclass StrictSubclass OtherStrictSubclass Tricky InitArg );
+my @classes
+    = qw( Standard Stricter Subclass StrictSubclass OtherStrictSubclass Tricky InitArg );
 
 with_immutable {
     is(
@@ -106,18 +107,20 @@ with_immutable {
     );
 
     is(
-        exception { StrictSubclass->new( thing => 1, size => 'large', ) }, undef,
-        'subclass that doesn\'t use strict constructor handles known attributes correctly'
+        exception { StrictSubclass->new( thing => 1, size => 'large', ) },
+        undef,
+        q{subclass that doesn't use strict constructor handles known attributes correctly}
     );
 
     like(
         exception { StrictSubclass->new( thing => 1, bad => 99 ) },
         qr/unknown attribute.+: bad/,
-        'subclass that doesn\'t use strict correctly recognizes bad attribute'
+        q{subclass that doesn't use strict correctly recognizes bad attribute}
     );
 
     is(
-        exception { OtherStrictSubclass->new( thing => 1, size => 'large', ) }, undef,
+        exception { OtherStrictSubclass->new( thing => 1, size => 'large', ) }
+        , undef,
         'strict subclass from parent that doesn\'t use strict constructor handles known attributes correctly'
     );
 
