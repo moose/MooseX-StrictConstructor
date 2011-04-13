@@ -1,3 +1,9 @@
+0.15     2011-04-13
+
+- The fix in 0.14 only worked with Moose 2.0, causing failures with earlier
+  versions.
+
+
 0.14     2011-04-13
 
 - Using extends caused strictness to be lost. Fixed by Karen Etheridge.
