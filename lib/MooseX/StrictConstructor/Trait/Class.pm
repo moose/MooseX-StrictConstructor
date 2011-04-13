@@ -33,7 +33,9 @@ around '_inline_BUILDALL' => sub {
 # lose the role.
 after superclasses => sub {
     my $self = shift;
-    return if not @_;
+
+    return unless @_;
+
     Moose::Util::MetaRole::apply_base_class_roles(
         for   => $self->name,
         roles => ['MooseX::StrictConstructor::Role::Object'],
