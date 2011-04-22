@@ -6,6 +6,30 @@ use namespace::autoclean;
 
 use B ();
 
+around new_object => sub {
+    my $orig = shift;
+    my $self = shift;
+    my $params = @_ == 1 ? $_[0] : {@_};
+    my $instance = $self->$orig(@_);
+
+    my %attrs = (
+        __INSTANCE__ => 1,
+        (map { $_ => 1 }
+             grep { defined }
+                  map { $_->init_arg }
+                      $self->get_all_attributes)
+    );
+
+    my @bad = sort grep { !$attrs{$_} } keys %$params;
+
+    if (@bad) {
+        $self->throw_error(
+            "Found unknown attribute(s) init_arg passed to the constructor: @bad");
+    }
+
+    return $instance;
+};
+
 around '_inline_BUILDALL' => sub {
     my $orig = shift;
     my $self = shift;
@@ -28,19 +52,6 @@ around '_inline_BUILDALL' => sub {
         '}',
     );
 } if $Moose::VERSION >= 1.9900;
-
-# If the base class role is applied first, and then a superclass is added, we
-# lose the role.
-after superclasses => sub {
-    my $self = shift;
-
-    return unless @_;
-
-    Moose::Util::MetaRole::apply_base_class_roles(
-        for   => $self->name(),
-        roles => ['MooseX::StrictConstructor::Role::Object'],
-    );
-};
 
 1;
 

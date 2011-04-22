@@ -6,7 +6,6 @@ use warnings;
 use Moose 0.94 ();
 use Moose::Exporter;
 use Moose::Util::MetaRole;
-use MooseX::StrictConstructor::Role::Object;
 
 {
     my %class_meta = ( class => ['MooseX::StrictConstructor::Trait::Class'] );
@@ -19,8 +18,7 @@ use MooseX::StrictConstructor::Role::Object;
     }
 
     Moose::Exporter->setup_import_methods(
-            class_metaroles  => \%class_meta,
-            base_class_roles => ['MooseX::StrictConstructor::Role::Object'],
+        class_metaroles => \%class_meta,
     );
 }
 
