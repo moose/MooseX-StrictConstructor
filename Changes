@@ -1,3 +1,9 @@
+{{$NEXT}}
+
+- Don't wrap BUILDALL, since this breaks if the object doesn't inherit from
+  Moose::Object (doy).
+
+
 0.15     2011-04-13
 
 - The fix in 0.14 only worked with Moose 2.0, causing failures with earlier
