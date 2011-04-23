@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.16     2011-04-22
+
 - Don't wrap BUILDALL, since this breaks if the object doesn't inherit from
   Moose::Object (doy).
 
