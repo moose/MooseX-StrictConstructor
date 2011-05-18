@@ -20,16 +20,6 @@ use Moose::Util::MetaRole;
     Moose::Exporter->setup_import_methods(
         class_metaroles => \%class_meta,
     );
-
-    my $old_import = __PACKAGE__->can('import');
-    no warnings 'redefine';
-    *import = sub {
-      my $caller = caller;
-      Carp::croak "$_[0] can only be applied to Moose classes"
-        unless eval { $caller->meta->isa('Moose::Meta::Class') };
-
-      goto &$old_import;
-    };
 }
 
 1;

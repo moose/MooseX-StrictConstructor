@@ -80,26 +80,6 @@ use Test::More;
     has 'size'  => ( is => 'rw', 'init_arg' => undef );
 }
 
-{
-    local $@;
-    eval q[package MyRole; use Moose::Role; use MooseX::StrictConstructor;];
-    like(
-        $@,
-        qr/can only be applied to Moose classes/,
-        "can't apply MXSC to a role"
-    );
-}
-
-{
-    local $@;
-    eval q[package Nothing; use MooseX::StrictConstructor;];
-    like(
-        $@,
-        qr/can only be applied to Moose classes/,
-        "can't apply MXSC to a random package",
-    );
-}
-
 my @classes
     = qw( Standard Stricter Subclass StrictSubclass OtherStrictSubclass Tricky InitArg );
 
