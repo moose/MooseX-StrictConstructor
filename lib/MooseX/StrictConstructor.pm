@@ -10,7 +10,6 @@ use Moose::Util::MetaRole;
 {
     my %class_meta = ( class => ['MooseX::StrictConstructor::Trait::Class'] );
 
-
     if ( $Moose::VERSION < 1.9900 ) {
         require MooseX::StrictConstructor::Trait::Method::Constructor;
         $class_meta{constructor}
