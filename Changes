@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.17     2012-01-04
+
 - Added a small optimization for an immutable constructor when used with Moose
   2.00+. The list of valid attributes is only generated once, rather than each
   time the constructor is run. Reported by Chip Salzenberg. RT #73664.
