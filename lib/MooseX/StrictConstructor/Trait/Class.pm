@@ -32,7 +32,7 @@ around new_object => sub {
     return $instance;
 };
 
-around '_inline_BUILDALL' => sub {
+around _inline_BUILDALL => sub {
     my $orig = shift;
     my $self = shift;
 

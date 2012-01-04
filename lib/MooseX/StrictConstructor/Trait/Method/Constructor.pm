@@ -6,19 +6,18 @@ use namespace::autoclean;
 
 use B ();
 
-around '_generate_BUILDALL' => sub {
+around _generate_BUILDALL => sub {
     my $orig = shift;
     my $self = shift;
 
     my $source = $self->$orig();
     $source .= ";\n" if $source;
 
-    my @attrs = (
-        '__INSTANCE__ => 1,',
-        map { B::perlstring($_) . ' => 1,' }
-        grep {defined}
-        map  { $_->init_arg() } @{ $self->_attributes() }
-    );
+    my @attrs = '__INSTANCE__ => 1,';
+    push @attrs, map { B::perlstring($_) . ' => 1,' }
+        grep { defined }
+        map  { $_->init_arg() } @{ $self->_attributes() };
+
 
     $source .= <<"EOF";
 my \%attrs = (@attrs);
