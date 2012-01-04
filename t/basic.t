@@ -3,7 +3,7 @@ use warnings;
 
 use Test::Fatal;
 use Test::Moose qw( with_immutable );
-use Test::More;
+use Test::More 0.88;
 
 {
     package Standard;
