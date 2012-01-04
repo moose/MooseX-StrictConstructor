@@ -7,19 +7,16 @@ use Moose 0.94 ();
 use Moose::Exporter;
 use Moose::Util::MetaRole;
 
-{
-    my %class_meta = ( class => ['MooseX::StrictConstructor::Trait::Class'] );
+use MooseX::StrictConstructor::Trait::Class;
+use MooseX::StrictConstructor::Trait::Method::Constructor;;
 
-    if ( $Moose::VERSION < 1.9900 ) {
-        require MooseX::StrictConstructor::Trait::Method::Constructor;
-        $class_meta{constructor}
-            = ['MooseX::StrictConstructor::Trait::Method::Constructor'];
-    }
-
-    Moose::Exporter->setup_import_methods(
-        class_metaroles => \%class_meta,
-    );
-}
+Moose::Exporter->setup_import_methods(
+    class_metaroles => {
+        class => ['MooseX::StrictConstructor::Trait::Class'],
+        constructor =>
+            ['MooseX::StrictConstructor::Trait::Method::Constructor'],
+    },
+);
 
 1;
 

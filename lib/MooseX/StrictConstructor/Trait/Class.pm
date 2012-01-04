@@ -47,8 +47,7 @@ around '_inline_BUILDALL' => sub {
 
     return (
         @source,
-        'my %attrs = (' . ( join ' ', @attrs ) . ');',
-        'my @bad = sort grep { !$attrs{$_} } keys %{ $params };',
+        'my @bad = sort grep { !$allowed_attrs{$_} } keys %{ $params };',
         'if (@bad) {',
             'Moose->throw_error("Found unknown attribute(s) passed to the constructor: @bad");',
         '}',
