@@ -31,24 +31,6 @@ EOF
     return $source;
 } if $Moose::VERSION < 1.9900;
 
-around _eval_environment => sub {
-    my $orig = shift;
-    my $self = shift;
-
-    my $env = $self->$orig();
-
-    my %attrs = map { $_ => 1 }
-        grep { defined }
-        map  { $_->init_arg() }
-        $self->associated_metaclass()->get_all_attributes();
-
-    $attrs{__INSTANCE__} = 1;
-
-    $env->{'%allowed_attrs'} = \%attrs;
-
-    return $env;
-} if $Moose::VERSION >= 1.9900;
-
 1;
 
 # ABSTRACT: A role to make immutable constructors strict

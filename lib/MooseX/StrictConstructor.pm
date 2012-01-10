@@ -10,13 +10,15 @@ use Moose::Util::MetaRole;
 use MooseX::StrictConstructor::Trait::Class;
 use MooseX::StrictConstructor::Trait::Method::Constructor;;
 
-Moose::Exporter->setup_import_methods(
-    class_metaroles => {
-        class => ['MooseX::StrictConstructor::Trait::Class'],
-        constructor =>
-            ['MooseX::StrictConstructor::Trait::Method::Constructor'],
-    },
+my %metaroles = (
+    class => ['MooseX::StrictConstructor::Trait::Class'],
 );
+
+$metaroles{constructor}
+    = ['MooseX::StrictConstructor::Trait::Method::Constructor']
+    if $Moose::VERSION >= 1.9900;
+
+Moose::Exporter->setup_import_methods( class_metaroles => \%metaroles );
 
 1;
 
