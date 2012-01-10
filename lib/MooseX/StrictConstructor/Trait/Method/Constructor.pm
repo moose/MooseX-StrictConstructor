@@ -18,7 +18,6 @@ around _generate_BUILDALL => sub {
         grep { defined }
         map  { $_->init_arg() } @{ $self->_attributes() };
 
-
     $source .= <<"EOF";
 my \%attrs = (@attrs);
 
