@@ -1,5 +1,8 @@
 {{$NEXT}}
 
+- The 0.17 release broke compatibility with pre-2.0 versions of Moose.
+
+
 0.18     2012-01-10
 
 - A small internal tweak which prevents the MooseX::ClassCompositor tests from
