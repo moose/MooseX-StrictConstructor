@@ -1,5 +1,7 @@
 {{$NEXT}}
 
+0.19     2012-01-17
+
 - The 0.17 release broke compatibility with pre-2.0 versions of Moose.
 
 
