@@ -16,7 +16,7 @@ my %metaroles = (
 
 $metaroles{constructor}
     = ['MooseX::StrictConstructor::Trait::Method::Constructor']
-    if $Moose::VERSION >= 1.9900;
+    if $Moose::VERSION <= 1.9900;
 
 Moose::Exporter->setup_import_methods( class_metaroles => \%metaroles );
 
