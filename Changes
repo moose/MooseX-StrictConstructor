@@ -1,6 +1,9 @@
 {{$NEXT}}
 
 - repository has moved to the GitHub Moose organization
+- added support for __no_BUILD__ as a constructor argument to skip calling any
+  BUILD subs (used internally by modules like Moo that have their own
+  implementation of calling BUILD) (RT#120124)
 
 0.19     2012-01-17
 

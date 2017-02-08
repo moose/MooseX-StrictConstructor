@@ -14,6 +14,7 @@ around new_object => sub {
 
     my %attrs = (
         __INSTANCE__ => 1,
+        __no_BUILD__ => 1,
         (
             map { $_ => 1 }
             grep {defined}
@@ -40,6 +41,7 @@ around _inline_BUILDALL => sub {
 
     my @attrs = (
         '__INSTANCE__ => 1,',
+        '__no_BUILD__ => 1,',
         map { B::perlstring($_) . ' => 1,' }
         grep {defined}
         map  { $_->init_arg() } $self->get_all_attributes()
@@ -66,6 +68,7 @@ around _eval_environment => sub {
         $self->get_all_attributes();
 
     $attrs{__INSTANCE__} = 1;
+    $attrs{__no_BUILD__} = 1;
 
     $env->{'%allowed_attrs'} = \%attrs;
 
