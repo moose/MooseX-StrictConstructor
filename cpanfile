@@ -10,7 +10,6 @@ requires "warnings" => "0";
 on 'test' => sub {
   requires "ExtUtils::MakeMaker" => "0";
   requires "File::Spec" => "0";
-  requires "Moo" => "0";
   requires "Test::Fatal" => "0";
   requires "Test::Moose" => "0";
   requires "Test::More" => "0.96";
@@ -19,6 +18,10 @@ on 'test' => sub {
 
 on 'test' => sub {
   recommends "CPAN::Meta" => "2.120900";
+};
+
+on 'test' => sub {
+  suggests "Moo" => "0";
 };
 
 on 'configure' => sub {
@@ -31,6 +34,7 @@ on 'develop' => sub {
   requires "File::Spec" => "0";
   requires "IO::Handle" => "0";
   requires "IPC::Open3" => "0";
+  requires "Moo" => "0";
   requires "Parallel::ForkManager" => "1.19";
   requires "Perl::Critic" => "1.126";
   requires "Perl::Tidy" => "20160302";

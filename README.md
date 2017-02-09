@@ -4,7 +4,7 @@ MooseX::StrictConstructor - Make your object constructors blow up on unknown att
 
 # VERSION
 
-version 0.20
+version 0.21
 
 # SYNOPSIS
 
