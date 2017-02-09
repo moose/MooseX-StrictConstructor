@@ -3,7 +3,7 @@
 0.21     2017-02-09
 
 - The last release accidentally added Moo as a hard prereq when it's only
-  needed for testing. Patched by Karen Etheride (GH #4).
+  needed for testing. Patched by Karen Etheridge (GH #4).
 
 
 0.20     2017-02-09
