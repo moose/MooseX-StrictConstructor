@@ -1,3 +1,4 @@
+## no critic (Moose::RequireMakeImmutable)
 package MooseX::StrictConstructor;
 
 use strict;
@@ -10,7 +11,7 @@ use Moose::Exporter;
 use Moose::Util::MetaRole;
 
 use MooseX::StrictConstructor::Trait::Class;
-use MooseX::StrictConstructor::Trait::Method::Constructor;;
+use MooseX::StrictConstructor::Trait::Method::Constructor;
 
 my %metaroles = (
     class => ['MooseX::StrictConstructor::Trait::Class'],

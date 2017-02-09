@@ -19,7 +19,7 @@ around _generate_BUILDALL => sub {
 
     my @attrs = '__INSTANCE__ => 1,';
     push @attrs, map { B::perlstring($_) . ' => 1,' }
-        grep { defined }
+        grep {defined}
         map  { $_->init_arg() } @{ $self->_attributes() };
 
     $source .= <<"EOF";
@@ -33,7 +33,8 @@ if (\@bad) {
 EOF
 
     return $source;
-} if $Moose::VERSION < 1.9900;
+    }
+    if $Moose::VERSION < 1.9900;
 
 1;
 

@@ -1,3 +1,4 @@
+## no critic (Modules::ProhibitMultiplePackages, Moose::RequireMakeImmutable, Moose::RequireCleanNamespace)
 use strict;
 use warnings;
 
@@ -119,7 +120,8 @@ with_immutable {
     );
 
     is(
-        exception { OtherStrictSubclass->new( thing => 1, size => 'large', ) },
+        exception { OtherStrictSubclass->new( thing => 1, size => 'large', ) }
+        ,
         undef,
         q{strict subclass from parent that doesn't use strict constructor handles known attributes correctly}
     );

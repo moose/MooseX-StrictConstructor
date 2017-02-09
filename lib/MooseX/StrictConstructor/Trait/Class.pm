@@ -44,19 +44,20 @@ around _inline_BUILDALL => sub {
 
     my @attrs = (
         '__INSTANCE__ => 1,',
-        map { B::perlstring($_) . ' => 1,' }
-        grep {defined}
-        map  { $_->init_arg() } $self->get_all_attributes()
+        map      { B::perlstring($_) . ' => 1,' }
+            grep {defined}
+            map  { $_->init_arg() } $self->get_all_attributes()
     );
 
     return (
         @source,
         'my @bad = sort grep { !$allowed_attrs{$_} } keys %{ $params };',
         'if (@bad) {',
-            'Moose->throw_error("Found unknown attribute(s) passed to the constructor: @bad");',
+        'Moose->throw_error("Found unknown attribute(s) passed to the constructor: @bad");',
         '}',
     );
-} if $Moose::VERSION >= 1.9900;
+    }
+    if $Moose::VERSION >= 1.9900;
 
 around _eval_environment => sub {
     my $orig = shift;
@@ -65,16 +66,16 @@ around _eval_environment => sub {
     my $env = $self->$orig();
 
     my %attrs = map { $_ => 1 }
-        grep { defined }
-        map  { $_->init_arg() }
-        $self->get_all_attributes();
+        grep {defined}
+        map  { $_->init_arg() } $self->get_all_attributes();
 
     $attrs{__INSTANCE__} = 1;
 
     $env->{'%allowed_attrs'} = \%attrs;
 
     return $env;
-} if $Moose::VERSION >= 1.9900;
+    }
+    if $Moose::VERSION >= 1.9900;
 
 1;
 
