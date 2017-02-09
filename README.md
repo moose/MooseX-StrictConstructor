@@ -55,7 +55,7 @@ interface at [http://rt.cpan.org](http://rt.cpan.org).  I will be notified, and 
 you'll automatically be notified of progress on your bug as I make
 changes.
 
-Bugs may be submitted at [http://rt.cpan.org/Public/Dist/Display.html?Name=MooseX-StrictConstructor](http://rt.cpan.org/Public/Dist/Display.html?Name=MooseX-StrictConstructor) or via email to [bug-moosex-strictconstructor@rt.cpan.org](mailto:bug-moosex-strictconstructor@rt.cpan.org).
+Bugs may be submitted at [https://github.com/moose/MooseX-StrictConstructor/issues](https://github.com/moose/MooseX-StrictConstructor/issues).
 
 I am also usually active on IRC as 'autarch' on `irc://irc.perl.org`.
 

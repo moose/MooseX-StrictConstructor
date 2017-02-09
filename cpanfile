@@ -10,9 +10,11 @@ requires "warnings" => "0";
 on 'test' => sub {
   requires "ExtUtils::MakeMaker" => "0";
   requires "File::Spec" => "0";
+  requires "Moo" => "0";
   requires "Test::Fatal" => "0";
   requires "Test::Moose" => "0";
   requires "Test::More" => "0.96";
+  requires "Test::Needs" => "0";
 };
 
 on 'test' => sub {
