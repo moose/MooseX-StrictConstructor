@@ -38,7 +38,7 @@ __END__
     use Moose;
     use MooseX::StrictConstructor;
 
-    has 'size' => ...;
+    has 'size' => ( is => 'ro' );
 
     # then later ...
 
