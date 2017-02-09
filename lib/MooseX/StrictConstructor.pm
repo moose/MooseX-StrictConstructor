@@ -3,6 +3,8 @@ package MooseX::StrictConstructor;
 use strict;
 use warnings;
 
+our $VERSION = '0.20';
+
 use Moose 0.94 ();
 use Moose::Exporter;
 use Moose::Util::MetaRole;

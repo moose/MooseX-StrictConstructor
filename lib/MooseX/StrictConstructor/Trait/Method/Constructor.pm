@@ -1,8 +1,12 @@
 package MooseX::StrictConstructor::Trait::Method::Constructor;
 
-use Moose::Role;
-
+use strict;
+use warnings;
 use namespace::autoclean;
+
+our $VERSION = '0.20';
+
+use Moose::Role;
 
 use B ();
 
